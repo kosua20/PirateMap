@@ -37,7 +37,8 @@ public class PirateMapPanel extends JPanel {
     private void createMap() {
         PirateMap map = new PirateMap(WIDTH, HEIGHT);
         map.populateWithNoise();
-
+        map.findMountains();
+        map.addWaves();
         background = map.getImageRepresentation();
         File f = new File("output/map_" + new Date().toString() + ".png");
         try {

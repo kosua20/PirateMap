@@ -31,6 +31,11 @@ public class RandomSuite {
         return mainRandom.nextInt(bound);
     }
 
+    public int nextIntIn(int lower, int upper){
+
+        return lower + mainRandom.nextInt(upper - lower + 1);
+    }
+
     public double perlin(int x, int y, int z){
         return  perlin.perlin(x,y,z);
     }

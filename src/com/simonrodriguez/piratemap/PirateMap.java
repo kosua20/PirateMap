@@ -32,6 +32,9 @@ public class PirateMap {
     private double[][] map;
     private int seed;
     private RandomSuite random;
+    private int[] mx;
+    private int[] my;
+    private int mountainsCount;
 
     public PirateMap(int width, int height){
         this(width, height,(int)(new Date().getTime()/1000));
@@ -43,6 +46,8 @@ public class PirateMap {
         this.seed = seed;
         this.random = new RandomSuite(seed, width);
         map = new double[height][width];
+
+        mountainsCount = 12 + random.nextInt(20);
 
     }
 
@@ -109,27 +114,78 @@ public class PirateMap {
     }
 
     public BufferedImage getImageRepresentation() {
+        BufferedImage result = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
         BufferedImage image = getColoredMap(true);
         Color baseColor = new Color(87,73,64);
         LineFilter lif = new LineFilter(image, baseColor);
         BufferedImage drawing =  lif.renforce(lif.filter(true),4,0.1f);
-        BufferedImage combined = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
         try {
             BufferedImage bg = ImageIO.read(new File("ressources/bg1.jpg"));
+            result = combineImages(drawing,bg);
+            BufferedImage mount = ImageIO.read(new File("ressources/tree1.png"));
 
-            Graphics g = combined.getGraphics();
-            g.drawImage(bg, 0, 0, null);
-            g.drawImage(drawing, 0, 0, null);
+            int moutainShift = 8;
+            int size = mount.getWidth()/2;
+            for(int i = 0; i < mountainsCount;i++){
+                addImage(mount,mx[i]-size+random.nextIntIn(-moutainShift,moutainShift),my[i]-size+random.nextIntIn(-moutainShift,moutainShift),result);
+            }
+
+
         } catch (IOException e){
             System.out.println("Error loading backgrounds");
         }
-        return combined;
+
+
+
+
+        return result;
 
     }
-/*float[] matrix = { 1.0f / 9.0f, 1.0f / 9.0f, 1.0f / 9.0f, 1.0f / 9.0f, 1.0f / 9.0f,  1.0f / 9.0f, 1.0f / 9.0f, 1.0f / 9.0f, 1.0f / 9.0f };
 
-        background = colorize
-        */
+    private BufferedImage combineImages(BufferedImage foreground, BufferedImage background){
+        BufferedImage combined = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = combined.getGraphics();
+        g.drawImage(background, 0, 0, null);
+        g.drawImage(foreground, 0, 0, null);
+        return combined;
+    }
 
+    private BufferedImage addImage(BufferedImage foreground, int x, int y, BufferedImage background){
+        Graphics g = background.getGraphics();
+        g.drawImage(foreground,x,y,null);
+        return background;
+    }
+
+    public void addWaves() {
+    }
+
+    public void findMountains() {
+        mx = new int[mountainsCount];
+        my = new int[mountainsCount];
+        for(int c = 0; c<mountainsCount;c++) {
+            double currentMax = 0.0;
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    if(map[y][x] > currentMax) {//between 0 and 1;
+                        boolean good = true;
+                        for(int p = 0; p < c; p++){
+                            if(Math.pow((mx[p]-x),2) + Math.pow((my[p]-y),2)<800){
+                                good = false;
+                                break;
+                            }
+                        }
+                        if(good){
+                            currentMax = map[y][x];
+                            mx[c] = x;
+                            my[c] = y;
+                        }
+                    }
+
+                }
+            }
+        }
+
+    }
 
 }
