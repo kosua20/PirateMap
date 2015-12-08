@@ -4,4 +4,4 @@ My submission for the Monthly Challenge #1 (Dec, 2015) - Procedural Pirate Map, 
 
 Pictures available [here](http://imgur.com/a/7Qjk1) !
 
-![Current progress](http://i.imgur.com/FHFwoQv.png)
+![Current progress](http://i.imgur.com/c653UGV.png)
