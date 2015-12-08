@@ -18,29 +18,15 @@ public class PirateMapPanel extends JPanel {
 
     public PirateMapPanel(){
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
-
-
-        /*for(int i = 0 ; i < 4; i++){
-            int seedi = (int)Math.ceil(Math.random()*100000.0);
-            PerlinNoiseGenerator geni = new PerlinNoiseGenerator(seedi, WIDTH,HEIGHT);
-            BufferedImage map = geni.generateNoiseMap();
-            //BufferedImage res = blurFilter.filter(map, null);
-            File f = new File("map_" + seedi + ".png");
-            try {
-                ImageIO.write(map, "PNG", f);
-            } catch (Exception e){
-                System.out.println("Error writing.");
-            }
-        }*/
     }
 
     private void createMap() {
         PirateMap map = new PirateMap(WIDTH, HEIGHT);
         map.populateWithNoise();
-        map.findMountains();
+        map.findMountains(1000);
         map.addWaves();
         background = map.getImageRepresentation();
-        File f = new File("output/map_" + new Date().toString() + ".png");
+        File f = new File("output/map_" + new Date().toString() + "_" + map.seed + ".png");
         try {
             ImageIO.write(background, "PNG", f);
         } catch (Exception e){

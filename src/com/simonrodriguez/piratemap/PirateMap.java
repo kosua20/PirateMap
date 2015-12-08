@@ -10,15 +10,17 @@ import java.awt.image.Kernel;
 import java.io.File;
 import java.io.IOException;
 import java.nio.BufferUnderflowException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Random;
 
 public class PirateMap {
 
-    //TODO: multiple backgrounds
+    //TODO: multiple pictures
     //TODO: Creatures in the sea
-    //TODO: Waves and compass
-    //TODO: Mountains at highest points
+    //TODO: Compass
+    //DONE: Waves
+    //DONE: Mountains at highest points
     //TODO: Red X
     //TODO: Path to X
     //TODO: Rivers
@@ -30,10 +32,11 @@ public class PirateMap {
     private int width;
     private int height;
     private double[][] map;
-    private int seed;
+    public int seed;
     private RandomSuite random;
-    private int[] mx;
-    private int[] my;
+    private int[][] mnt;
+    private ArrayList<int[]> waves;
+
     private int mountainsCount;
 
     public PirateMap(int width, int height){
@@ -118,26 +121,37 @@ public class PirateMap {
         BufferedImage image = getColoredMap(true);
         Color baseColor = new Color(87,73,64);
         LineFilter lif = new LineFilter(image, baseColor);
-        BufferedImage drawing =  lif.renforce(lif.filter(true),4,0.1f);
+        int lineWidth = 4;
+        BufferedImage drawing =  lif.renforce(lif.filter(true),lineWidth,0.1f);
 
         try {
             BufferedImage bg = ImageIO.read(new File("ressources/bg1.jpg"));
             result = combineImages(drawing,bg);
-            BufferedImage mount = ImageIO.read(new File("ressources/tree1.png"));
+            BufferedImage mount = ImageIO.read(new File("ressources/mountain1.png"));
 
             int moutainShift = 8;
             int size = mount.getWidth()/2;
             for(int i = 0; i < mountainsCount;i++){
-                addImage(mount,mx[i]-size+random.nextIntIn(-moutainShift,moutainShift),my[i]-size+random.nextIntIn(-moutainShift,moutainShift),result);
+                addImage(mount,mnt[i][0]-size+random.nextIntIn(-moutainShift,moutainShift),mnt[i][1]-size+random.nextIntIn(-moutainShift,moutainShift),result);
             }
 
 
-        } catch (IOException e){
+            BufferedImage wave = ImageIO.read(new File("ressources/wave1.png"));
+
+            int waveW = (int)(wave.getWidth()*0.5);
+            int waveH = (int)(wave.getHeight()*0.5);
+
+            for(int[] w: waves){
+                int cx = w[0]-waveW;
+                int cy = w[1] - waveH;
+                if(!groundAround(cx,cy,waveW+2*lineWidth,waveH+2*lineWidth)) {
+                    addImage(wave, cx,cy, result);
+                }
+            }
+
+        }catch (IOException e){
             System.out.println("Error loading backgrounds");
         }
-
-
-
 
         return result;
 
@@ -158,11 +172,28 @@ public class PirateMap {
     }
 
     public void addWaves() {
+        waves = random.poissonGrid(width,height,140);
     }
 
-    public void findMountains() {
-        mx = new int[mountainsCount];
-        my = new int[mountainsCount];
+    private boolean groundAround(int x, int y, int w, int h){
+        //quick shortcut at center
+        if (y >= 0 && x>=0 && y < height && x < width && map[y][x] > 0.0){
+            return true;
+        }
+        //the full check
+        for(int px = Math.max(0,x - w); px <= Math.min(width-1,x + w); px++){
+            for(int py = Math.max(0,y - h); py <= Math.min(height-1,y + h); py++){
+                if (map[py][px] > 0.0){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void findMountains(int threshold) {
+        mnt = new int[mountainsCount][2];
+
         for(int c = 0; c<mountainsCount;c++) {
             double currentMax = 0.0;
             for (int x = 0; x < width; x++) {
@@ -170,15 +201,15 @@ public class PirateMap {
                     if(map[y][x] > currentMax) {//between 0 and 1;
                         boolean good = true;
                         for(int p = 0; p < c; p++){
-                            if(Math.pow((mx[p]-x),2) + Math.pow((my[p]-y),2)<800){
+                            if(Math.pow((mnt[p][0]-x),2) + Math.pow((mnt[p][1]-y),2)<threshold){
                                 good = false;
                                 break;
                             }
                         }
                         if(good){
                             currentMax = map[y][x];
-                            mx[c] = x;
-                            my[c] = y;
+                            mnt[c][0] = x;
+                            mnt[c][1] = y;
                         }
                     }
 
