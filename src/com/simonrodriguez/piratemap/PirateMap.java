@@ -36,6 +36,7 @@ public class PirateMap {
     private RandomSuite random;
     private int[][] mnt;
     private ArrayList<int[]> waves;
+    private int[] cross = new int[]{0,0};
 
     private int mountainsCount;
 
@@ -50,7 +51,7 @@ public class PirateMap {
         this.random = new RandomSuite(seed, width);
         map = new double[height][width];
 
-        mountainsCount = 12 + random.nextInt(20);
+        mountainsCount = 5 + random.nextInt(10);
 
     }
 
@@ -127,12 +128,16 @@ public class PirateMap {
         try {
             BufferedImage bg = ImageIO.read(new File("ressources/bg1.jpg"));
             result = combineImages(drawing,bg);
-            BufferedImage mount = ImageIO.read(new File("ressources/mountain1.png"));
+            ArrayList<BufferedImage> mounts = new ArrayList<>();
+            for(int i = 1; i < 5; i++){
+                BufferedImage mount = ImageIO.read(new File("ressources/mount" + i + ".png"));
+                mounts.add(mount);
+            }
 
             int moutainShift = 8;
-            int size = mount.getWidth()/2;
+            int size = mounts.get(0).getWidth()/2;
             for(int i = 0; i < mountainsCount;i++){
-                addImage(mount,mnt[i][0]-size+random.nextIntIn(-moutainShift,moutainShift),mnt[i][1]-size+random.nextIntIn(-moutainShift,moutainShift),result);
+                addImage(mounts.get(random.nextInt(mounts.size())),mnt[i][0]-size+random.nextIntIn(-moutainShift,moutainShift),mnt[i][1]-size+random.nextIntIn(-moutainShift,moutainShift),result);
             }
 
 
@@ -148,6 +153,10 @@ public class PirateMap {
                     addImage(wave, cx,cy, result);
                 }
             }
+
+            BufferedImage crossPic = ImageIO.read(new File("ressources/cross1.png"));
+            addImage(crossPic,cross[0],cross[1],result);
+
 
         }catch (IOException e){
             System.out.println("Error loading backgrounds");
@@ -191,6 +200,22 @@ public class PirateMap {
         return false;
     }
 
+    private boolean waterAround(int x, int y, int w, int h){
+        //quick shortcut at center
+        if (y >= 0 && x>=0 && y < height && x < width && map[y][x] <= 0.0){
+            return true;
+        }
+        //the full check
+        for(int px = Math.max(0,x - w); px <= Math.min(width-1,x + w); px++){
+            for(int py = Math.max(0,y - h); py <= Math.min(height-1,y + h); py++){
+                if (map[py][px] <= 0.0){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public void findMountains(int threshold) {
         mnt = new int[mountainsCount][2];
 
@@ -216,6 +241,17 @@ public class PirateMap {
                 }
             }
         }
+
+    }
+
+    public void placeX(){
+        int x, y;
+        do {
+            x = random.nextInt(width);
+            y = random.nextInt(height);
+        } while(waterAround(x,y,40,40));
+        cross[0] = x;
+        cross[1] = y;
 
     }
 

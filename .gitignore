@@ -1,5 +1,5 @@
 bin/
 out/
 output/
-
+psd/
 src/com/simonrodriguez/piratemap/CannyEdgeDetector.java
