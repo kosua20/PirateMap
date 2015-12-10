@@ -1,5 +1,6 @@
 package com.simonrodriguez.piratemap;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.image.ColorModel;
 import java.awt.image.WritableRaster;
@@ -13,6 +14,12 @@ public class PirateUtils {
         return x + a * (y-x);
     }
 
+    public static Color mix(Color c1, Color c2, double a){
+        double red = c1.getRed()+a*(c2.getRed()-c1.getRed());
+        double green = c1.getGreen()+a*(c2.getGreen()-c1.getGreen());
+        double blue = c1.getBlue()+a*(c2.getBlue()-c1.getBlue());
+        return new Color((int)red,(int)green,(int)blue);
+    }
 
     static BufferedImage deepCopy(BufferedImage bi) {
         ColorModel cm = bi.getColorModel();

@@ -35,7 +35,11 @@ public class PerlinNoiseGenerator {
     }
 
     public double perlin(int xpos, int ypos, int zpos){
-        double ratio = size / (double)number_cell;//<number of pixels per unit cell (length)
+        return perlin(xpos,ypos,zpos,number_cell);
+    }
+
+    public double perlin(int xpos, int ypos, int zpos, int cells){
+        double ratio = size / (double)cells;//<number of pixels per unit cell (length)
 
         //Compute coordinates of pixel in cells units
         double x = xpos / ratio;
@@ -72,7 +76,7 @@ public class PerlinNoiseGenerator {
         return PirateUtils.mix(z1,z2,f_z);
     }
 
-    private double fBm(int x, int y){
+    public double fBm(int x, int y){
         double total = 0.0;
         for(int i = 0; i < octaves; i++){
             total += perlin(x,y,i) * Math.pow(lacunarity, -h * i);
@@ -81,6 +85,18 @@ public class PerlinNoiseGenerator {
         }
         return total;
     }
+
+    /*
+    public double fBm2(int x, int y, int shift, int _octaves, double _lacunarity, double _h){
+        double total = 0.0;
+        for(int i = 0; i < _octaves; i++){
+            total += perlin(x,y,-1000*shift) * Math.pow(_lacunarity, -_h * i);
+            x *= _lacunarity;
+            y *= _lacunarity;
+        }
+        return total;
+    }
+    */
 
     private int permutation(int x){
         return permutations[x%256];

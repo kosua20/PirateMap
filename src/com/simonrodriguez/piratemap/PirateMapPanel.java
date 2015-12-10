@@ -22,10 +22,7 @@ public class PirateMapPanel extends JPanel {
 
     private void createMap() {
         PirateMap map = new PirateMap(WIDTH, HEIGHT);
-        map.populateWithNoise();
-        map.findMountains(1500);
-        map.addWaves();
-        map.placeX();
+        map.generate();
         background = map.getImageRepresentation();
         File f = new File("output/map_" + new Date().toString() + "_" + map.seed + ".png");
         try {
