@@ -227,7 +227,7 @@ public class PirateMap {
             }
         }
 
-        BufferedImage trame = ImageIO.read(new File("ressources/bg/bg" + random.nextIntIn(1,6) + ".jpg"));
+        BufferedImage trame = ImageIO.read(new File("ressources/bg/bg_" + random.nextIntIn(1,6) + ".jpg"));
         Graphics2D g = (Graphics2D)bg.getGraphics();
         g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.5f));
         g.drawImage(trame,0,0,width,height,null);
@@ -259,12 +259,19 @@ public class PirateMap {
             }
 
 
-            BufferedImage wave = ImageIO.read(new File("ressources/wave1.png"));
+            BufferedImage[] wavesPic = new BufferedImage[7];
+            for(int i = 0; i< wavesPic.length; i++){
+                wavesPic[i] = ImageIO.read(new File("ressources/wave/wave_" + (i+1) + ".png"));
+            }
+            //
+            //BufferedImage wave = ImageIO.read(new File("ressources/wave/wave_" + random.nextIntIn(1,7) + ".png"));
 
-            int waveW = (int)(wave.getWidth()*0.5);
-            int waveH = (int)(wave.getHeight()*0.5);
+
 
             for(int[] w: waves){
+                BufferedImage wave = wavesPic[random.nextInt(wavesPic.length)];
+                int waveW = (int)(wave.getWidth()*0.5);
+                int waveH = (int)(wave.getHeight()*0.5);
                 int cx = w[0]-waveW;
                 int cy = w[1] - waveH;
                 if(!groundAround(cx,cy,waveW+2*lineWidth,waveH+2*lineWidth)) {
