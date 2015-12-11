@@ -228,9 +228,7 @@ public class PirateMap {
         }
 
         BufferedImage trame = ImageIO.read(new File("ressources/bg/bg_" + random.nextIntIn(1,6) + ".jpg"));
-        Graphics2D g = (Graphics2D)bg.getGraphics();
-        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,0.5f));
-        g.drawImage(trame,0,0,width,height,null);
+        bg = PirateUtils.addOverlay(trame,0,0,0.5,width,height,bg);
         return bg;
 
     }
@@ -245,7 +243,7 @@ public class PirateMap {
 
         try {
             BufferedImage bg = this.getBackground();
-            result = combineImages(drawing,bg);
+            result = PirateUtils.combineImages(drawing,bg,width,height);
             ArrayList<BufferedImage> mounts = new ArrayList<>();
             for(int i = 1; i < 5; i++){
                 BufferedImage mount = ImageIO.read(new File("ressources/mount" + i + ".png"));
@@ -255,7 +253,7 @@ public class PirateMap {
             int moutainShift = 8;
             int size = mounts.get(0).getWidth()/2;
             for(int i = 0; i < mountainsCount;i++){
-                addImage(mounts.get(random.nextInt(mounts.size())),mnt[i][0]-size+random.nextIntIn(-moutainShift,moutainShift),mnt[i][1]-size+random.nextIntIn(-moutainShift,moutainShift),result);
+                PirateUtils.addImage(mounts.get(random.nextInt(mounts.size())),mnt[i][0]-size+random.nextIntIn(-moutainShift,moutainShift),mnt[i][1]-size+random.nextIntIn(-moutainShift,moutainShift),result);
             }
 
 
@@ -263,10 +261,7 @@ public class PirateMap {
             for(int i = 0; i< wavesPic.length; i++){
                 wavesPic[i] = ImageIO.read(new File("ressources/wave/wave_" + (i+1) + ".png"));
             }
-            //
-            //BufferedImage wave = ImageIO.read(new File("ressources/wave/wave_" + random.nextIntIn(1,7) + ".png"));
-
-
+            
 
             for(int[] w: waves){
                 BufferedImage wave = wavesPic[random.nextInt(wavesPic.length)];
@@ -275,15 +270,15 @@ public class PirateMap {
                 int cx = w[0]-waveW;
                 int cy = w[1] - waveH;
                 if(!groundAround(cx,cy,waveW+2*lineWidth,waveH+2*lineWidth)) {
-                    addImage(wave, cx,cy, result);
+                    PirateUtils.addImage(wave, cx,cy, result);
                 }
             }
 
             BufferedImage startPic = ImageIO.read(new File("ressources/spot1.png"));
-            addImage(startPic,start[0],start[1],result);
+            PirateUtils.addImage(startPic,start[0],start[1],result);
 
             BufferedImage crossPic = ImageIO.read(new File("ressources/cross1.png"));
-            addImage(crossPic,end[0],end[1],result);
+            PirateUtils.addImage(crossPic,end[0],end[1],result);
 
 
         }catch (IOException e){
@@ -294,18 +289,6 @@ public class PirateMap {
 
     }
 
-    private BufferedImage combineImages(BufferedImage foreground, BufferedImage background){
-        BufferedImage combined = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        Graphics g = combined.getGraphics();
-        g.drawImage(background, 0, 0, null);
-        g.drawImage(foreground, 0, 0, null);
-        return combined;
-    }
 
-    private BufferedImage addImage(BufferedImage foreground, int x, int y, BufferedImage background){
-        Graphics g = background.getGraphics();
-        g.drawImage(foreground,x,y,null);
-        return background;
-    }
 
 }

@@ -10,6 +10,27 @@ import java.awt.image.WritableRaster;
  */
 public class PirateUtils {
 
+    public static BufferedImage combineImages(BufferedImage foreground, BufferedImage background, int width, int height){
+        BufferedImage combined = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        Graphics g = combined.getGraphics();
+        g.drawImage(background, 0, 0, null);
+        g.drawImage(foreground, 0, 0, null);
+        return combined;
+    }
+
+    public static BufferedImage addImage(BufferedImage foreground, int x, int y, BufferedImage background){
+        Graphics g = background.getGraphics();
+        g.drawImage(foreground,x,y,null);
+        return background;
+    }
+
+    public static BufferedImage addOverlay(BufferedImage foreground, int x, int y, double alpha, int width, int height, BufferedImage background){
+        Graphics2D g = (Graphics2D)background.getGraphics();
+        g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER,(float)alpha));
+        g.drawImage(foreground,x,y,width,height,null);
+        return background;
+    }
+
     public static double mix(double x, double y, double a){
         return x + a * (y-x);
     }
