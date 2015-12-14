@@ -90,4 +90,21 @@ public class PirateUtils {
         }
 
     }
+
+    public static TerrainType getType(double height){
+        int value = (int)(255*height);
+        if (value <= 2) {
+           return TerrainType.Water;
+        } else if (value <= 7) {
+            return TerrainType.Coast;
+        } else if (value <= 25) {
+            return TerrainType.Plain;
+        } else if (value <= 150) {
+            return TerrainType.Forest;
+        } else if (value <= 165) {
+            return TerrainType.Valley;
+        } else {
+            return TerrainType. Moutain;
+        }
+    }
 }

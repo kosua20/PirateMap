@@ -25,13 +25,14 @@ public class PirateMapPanel extends JPanel {
     private void createMap() {
         PirateMap map = new PirateMap(WIDTH, HEIGHT/*,1450079587*/);
         map.generate();
+        map.print();
         background = map.getImageRepresentation();
-        File f = new File("output/map_" + new Date().toString() + "_" + map.seed + ".jpg");
+        File f = new File("output/map_" + new Date().toString() + "_" + map.seed + ".png");
         try {
             BufferedImage newImage = new BufferedImage(background.getWidth(), background.getHeight(), BufferedImage.TYPE_INT_RGB);
             int[] rgb = background.getRGB(0, 0, background.getWidth(), background.getHeight(), null, 0, background.getWidth());
             newImage.setRGB(0, 0, background.getWidth(), background.getHeight(), rgb, 0, background.getWidth());
-            ImageIO.write(newImage, "jpg", f);
+            ImageIO.write(newImage, "PNG", f);
         } catch (Exception e){
             System.out.println("Error writing.");
         }

@@ -37,6 +37,7 @@ public class PirateMap {
     private int[] start = new int[]{0,0};
     private ArrayList<int[]> path;
     private int mountainsCount;
+    private ArrayList<String> description = new ArrayList<>();
 
     public PirateMap(int width, int height){
         this(width, height,(int)(new Date().getTime()/1000));
@@ -55,7 +56,7 @@ public class PirateMap {
         this.populateWithNoise();
         mountainsCount = 5 + random.nextInt(10);
         this.findMountains(1500);
-        this.addWaves();
+        this.addWaves(90);
         this.placeX();
         this.findPath();
     }
@@ -68,8 +69,8 @@ public class PirateMap {
         }
     }
 
-    private void addWaves() {
-        waves = random.poissonGrid(width,height,140);
+    private void addWaves(int setting) {
+        waves = random.poissonGrid(width,height,setting);
     }
 
     private void findMountains(int threshold) {
@@ -116,11 +117,7 @@ public class PirateMap {
         } while(waterAround(x0,y0,0,0) || closeTo(x0,y0,x,y,distance));
         start[0] = x0;
         start[1] = y0;
-        System.out.println(x0 + ", " + y0);
     }
-
-
-
 
     private void findPath(){
         //We want to go from start to end
@@ -157,7 +154,7 @@ public class PirateMap {
             double factorDistance = distance2/((height+width)*(height+width)*0.5*0.5);
 
             int borne = (int)Math.floor(5*((factorDistance-0.02)/0.4)+1)+1;
-            System.out.println("D: " + borne);
+           // System.out.println("D: " + borne);
             int shift = 40;
            for (int i = 1; i < borne; i++) {
                 int xx = (int) (dx0 + (dx / (double) borne) * i);
@@ -181,23 +178,20 @@ public class PirateMap {
             Direction dir = PirateUtils.getDirection(dx,dy);
             //double avgState = (map[p0[1]][p0[0]] + map[p1[1]][p1[0]])*0.5;
             double avgState = map[(p0[1]+p1[1])/2][(p0[0]+p1[0])/2];
-            System.out.println("Go " + dir.toString() + " for " + (int)(Math.sqrt(dx*dx+dy*dy)*0.5) + " steps." + "("+ avgState +")");
-
+            description.add("Go " + dir.toString() + " for " + (int)(Math.sqrt(dx*dx+dy*dy)*0.5) + " steps, " + PirateUtils.getType(avgState).toString() +".");
             p0 = path.get(i);
         }
     }
 
-
-
     private boolean groundAround(int x, int y, int w, int h){
         //quick shortcut at center
-        if (y >= 0 && x>=0 && y < height && x < width && map[y][x] > 0.0){
+        /*if (y >= 0 && x>=0 && y < height && x < width && map[y][x] > 0.0){
             return true;
-        }
+        }*/
         //the full check
         for(int px = Math.max(0,x - w); px <= Math.min(width-1,x + w); px++){
             for(int py = Math.max(0,y - h); py <= Math.min(height-1,y + h); py++){
-                if (map[py][px] > 0.0){
+                if (map[py][px] > 0.0075){
                     return true;
                 }
             }
@@ -225,17 +219,6 @@ public class PirateMap {
         return Math.pow(x1-x2,2) + Math.pow(y1-y2,2) < Math.pow(margin,2);
     }
 
-    private BufferedImage rawImage(){
-        BufferedImage raw = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-        for (int x = 0; x < raw.getWidth(); x++) {
-            for (int y = 0; y < raw.getHeight(); y++) {
-                float value = (float)(map[y][x]);
-                raw.setRGB(x,y,(new Color(value,value,value)).getRGB());
-            }
-        }
-        return raw;
-    }
-
     private BufferedImage getColoredMap(boolean postprocess){
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 
@@ -245,7 +228,13 @@ public class PirateMap {
         int color4 = new Color(0.1f, 0.6f, 0.2f).getRGB();
         int color5 = new Color(0.3f, 0.2f, 0.0f).getRGB();
 
-        BufferedImage raw = this.rawImage();
+        BufferedImage raw = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+        for (int x = 0; x < raw.getWidth(); x++) {
+            for (int y = 0; y < raw.getHeight(); y++) {
+                float value = (float)(map[y][x]);
+                raw.setRGB(x,y,(new Color(value,value,value)).getRGB());
+            }
+        }
 
         if(postprocess){
             float[] kernelMatrix = PirateUtils.makeGaussianKernel(5,1.7f);
@@ -257,15 +246,15 @@ public class PirateMap {
             for (int y = 0; y < image.getHeight(); y++) {
                 int value = new Color(raw.getRGB(x,y)).getRed();
                 if (value <= 2) {
-                    image.setRGB(x, y, color1);
+                    image.setRGB(x, y, color1); //Water
                 } else if (value <= 7) {
-                    image.setRGB(x, y, color2);
+                    image.setRGB(x, y, color2); //Coast
                 } else if (value <= 25) {
-                    image.setRGB(x, y, color3);
+                    image.setRGB(x, y, color3);//Plain
                 } else if (value <= 150) {
-                    image.setRGB(x, y, color4);
+                    image.setRGB(x, y, color4);//Forest
                 } else if (value <= 165) {
-                    image.setRGB(x, y, color2);
+                    image.setRGB(x, y, color2);//Moutain
                 } else if (value <= 170) {
                     image.setRGB(x, y, color3);
                 } else {
@@ -276,7 +265,6 @@ public class PirateMap {
 
         return  image;
     }
-
 
     private BufferedImage getBackground() throws IOException {
         BufferedImage bg = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
@@ -314,6 +302,9 @@ public class PirateMap {
         BufferedImage drawing =  lif.renforce(lif.filter(true),lineWidth,0.1f);
 
         try {
+
+            BufferedImage debug = ImageIO.read(new File("ressources/wave/debug.png"));
+
             BufferedImage bg = this.getBackground();
             result = PirateUtils.combineImages(drawing,bg,width,height);
             ArrayList<BufferedImage> mounts = new ArrayList<>();
@@ -335,15 +326,19 @@ public class PirateMap {
             }
 
 
+
             for(int[] w: waves){
                 BufferedImage wave = wavesPic[random.nextInt(wavesPic.length)];
+
                 int waveW = (int)(wave.getWidth()*0.5);
                 int waveH = (int)(wave.getHeight()*0.5);
-                int cx = w[0]-waveW;
-                int cy = w[1] - waveH;
-                if(!groundAround(cx,cy,waveW+2*lineWidth,waveH+2*lineWidth)) {
-                    PirateUtils.addImage(wave, cx,cy, result);
+                int cx = w[0];
+                int cy = w[1];
+
+                if(!groundAround(cx,cy,waveW,waveH)) {
+                    PirateUtils.addImage(wave, cx-waveW,cy-waveH, result);
                 }
+
             }
 
             BufferedImage startPic = ImageIO.read(new File("ressources/spot1.png"));
@@ -366,10 +361,6 @@ public class PirateMap {
                 yPoints[i] = path.get(i)[1];
                 dash[2*i] = (float)random.nextIntIn(15,25);
                 dash[2*i+1] = (float)random.nextIntIn(10,20);
-
-               //g.drawRect(path.get(i)[0],path.get(i)[1],10,10);
-               // System.out.println(i+": ("+path.get(i)[0]+","+path.get(i)[1]+")");
-
             }
             g.setStroke(new BasicStroke(7.0f,                     // Line width
                     BasicStroke.CAP_ROUND,    // End-cap style
@@ -402,6 +393,12 @@ public class PirateMap {
 
     }
 
+    public void print(){
+        for(String str : description){
+            System.out.println(str);
+        }
+
+    }
 
 
 }
