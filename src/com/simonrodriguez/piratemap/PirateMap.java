@@ -12,13 +12,13 @@ import java.util.Date;
 
 public class PirateMap {
 
-    //TODO: multiple pictures
+    //DONE: multiple pictures
     //TODO: Creatures in the sea
     //TODO: Compass
     //DONE: Waves
     //DONE: Mountains at highest points
     //DONE: Red X
-    //TODO: Path to X
+    //DONE: Path to X
     //TODO: Rivers
     //TODO: plants, trees, ruins
     //TODO: print directions
@@ -34,7 +34,7 @@ public class PirateMap {
     private ArrayList<int[]> waves;
     private int[] end = new int[]{0,0};
     private int[] start = new int[]{0,0};
-
+    private ArrayList<int[]> path;
     private int mountainsCount;
 
     public PirateMap(int width, int height){
@@ -56,6 +56,7 @@ public class PirateMap {
         this.findMountains(1500);
         this.addWaves();
         this.placeX();
+        this.findPath();
     }
 
     private void populateWithNoise(){
@@ -106,16 +107,72 @@ public class PirateMap {
         } while(waterAround(x,y,40,40));
         end[0] = x;
         end[1] = y;
-        double distance = 200.0;
+        double distance = 400.0;
         do {
             x0 = random.nextInt(width);
             y0 = random.nextInt(height);
-            distance -= 1;
+            distance -= 0.2;
         } while(waterAround(x0,y0,0,0) || closeTo(x0,y0,x,y,distance));
         start[0] = x0;
         start[1] = y0;
         System.out.println(x0 + ", " + y0);
     }
+
+
+
+
+    private void findPath(){
+        //We want to go from start to end
+        path = new ArrayList<int[]>();
+        path.add(start);
+        int diffusion = 30;
+
+        int interestCount = 1;
+        for(int c = 0; c < interestCount+1;c++) {
+            //We pick points of interest randomly on the map
+            int x0,y0;
+            int distance = 120;
+
+            if(c==interestCount) {
+                x0 = end[0];
+                y0 = end[1];
+            } else {
+                do {
+                    x0 = random.nextInt(width);
+                    y0 = random.nextInt(height);
+                    distance -= 0.02;
+                } while (waterAround(x0, y0, 0, 0)
+                        || Math.abs(x0 - path.get(path.size()-1)[0])< diffusion
+                        || Math.abs(y0 - path.get(path.size()-1)[1])< diffusion
+                        || closeTo(x0, y0, path.get(path.size()-1)[0], path.get(path.size()-1)[1], distance)
+                        || closeTo(x0, y0, end[0], end[1], distance) || closeTo(x0, y0, start[0], start[1], distance)
+                        );
+            }
+            double dx0 = path.get(path.size()-1)[0];
+            double dy0 = path.get(path.size()-1)[1];
+            double dx = x0 - dx0;
+            double dy = y0 - dy0;
+            double distance2 = dx*dx + dy*dy;
+            double factorDistance = distance2/((height+width)*(height+width)*0.5*0.5);
+
+            int borne = (int)Math.floor(5*((factorDistance-0.02)/0.4)+1)+1;
+            System.out.println("D: " + borne);
+            int shift = 40;
+           for (int i = 1; i < borne; i++) {
+                int xx = (int) (dx0 + (dx / (double) borne) * i);
+                int yy = (int) (dy0 + (dy / (double) borne) * i);
+                //if(map[yy][xx] > 0){
+                    xx += random.nextIntIn(-shift, shift);
+                  yy += random.nextIntIn(-shift, shift);
+                //}
+
+                path.add(new int[]{xx,yy});
+            }
+            path.add(new int[]{x0,y0});
+        }
+    }
+
+
 
     private boolean groundAround(int x, int y, int w, int h){
         //quick shortcut at center
@@ -261,7 +318,7 @@ public class PirateMap {
             for(int i = 0; i< wavesPic.length; i++){
                 wavesPic[i] = ImageIO.read(new File("ressources/wave/wave_" + (i+1) + ".png"));
             }
-            
+
 
             for(int[] w: waves){
                 BufferedImage wave = wavesPic[random.nextInt(wavesPic.length)];
@@ -275,10 +332,35 @@ public class PirateMap {
             }
 
             BufferedImage startPic = ImageIO.read(new File("ressources/spot1.png"));
-            PirateUtils.addImage(startPic,start[0],start[1],result);
+            PirateUtils.addImage(startPic,start[0]-startPic.getWidth()/2,start[1]-startPic.getHeight()/2,result);
 
             BufferedImage crossPic = ImageIO.read(new File("ressources/cross1.png"));
-            PirateUtils.addImage(crossPic,end[0],end[1],result);
+            PirateUtils.addImage(crossPic,end[0]-crossPic.getWidth()/2,end[1]-crossPic.getHeight()/2,result);
+
+            Graphics2D g = (Graphics2D)result.getGraphics();
+            g.setColor(new Color(173,17,0));
+
+
+            int[] xPoints = new int[path.size()];
+            int[] yPoints = new int[path.size()];
+            float[] dash = new float[2*path.size()];
+            for(int i = 0; i <path.size() ; i++){
+                xPoints[i] = path.get(i)[0];
+                yPoints[i] = path.get(i)[1];
+                dash[2*i] = (float)random.nextIntIn(15,25);
+                dash[2*i+1] = (float)random.nextIntIn(10,20);
+
+               //g.drawRect(path.get(i)[0],path.get(i)[1],10,10);
+               // System.out.println(i+": ("+path.get(i)[0]+","+path.get(i)[1]+")");
+
+            }
+
+            g.setStroke(new BasicStroke(7.0f,                     // Line width
+                    BasicStroke.CAP_ROUND,    // End-cap style
+                    BasicStroke.JOIN_ROUND, 10.0f, dash,0.0f));
+            g.drawPolyline(xPoints,yPoints,path.size());
+
+
 
 
         }catch (IOException e){

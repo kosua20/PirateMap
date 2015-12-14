@@ -43,6 +43,10 @@ public class RandomSuite {
         return lower + mainRandom.nextDouble()*(upper - lower);
     }
 
+    public boolean nextBool(){
+        return nextDouble() < 0.5;
+    }
+
 
     public double perlin(int x, int y, int z, int cells){
         return  perlin.perlin(x,y,z,cells);

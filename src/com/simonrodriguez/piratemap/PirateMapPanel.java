@@ -21,12 +21,15 @@ public class PirateMapPanel extends JPanel {
     }
 
     private void createMap() {
-        PirateMap map = new PirateMap(WIDTH, HEIGHT);
+        PirateMap map = new PirateMap(WIDTH, HEIGHT/*,1450079587*/);
         map.generate();
         background = map.getImageRepresentation();
-        File f = new File("output/map_" + new Date().toString() + "_" + map.seed + ".png");
+        File f = new File("output/map_" + new Date().toString() + "_" + map.seed + ".jpg");
         try {
-            ImageIO.write(background, "PNG", f);
+            BufferedImage newImage = new BufferedImage(background.getWidth(), background.getHeight(), BufferedImage.TYPE_INT_RGB);
+            int[] rgb = background.getRGB(0, 0, background.getWidth(), background.getHeight(), null, 0, background.getWidth());
+            newImage.setRGB(0, 0, background.getWidth(), background.getHeight(), rgb, 0, background.getWidth());
+            ImageIO.write(newImage, "jpg", f);
         } catch (Exception e){
             System.out.println("Error writing.");
         }

@@ -66,4 +66,5 @@ public class PirateUtils {
             kernel[i] /= sum;
         return kernel;
     }
+
 }
