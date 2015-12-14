@@ -3,6 +3,7 @@ package com.simonrodriguez.piratemap;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.QuadCurve2D;
 import java.awt.image.*;
 import java.io.File;
 import java.io.IOException;
@@ -170,6 +171,20 @@ public class PirateMap {
             }
             path.add(new int[]{x0,y0});
         }
+
+        int[] p0 = path.get(0);
+
+        for(int i = 1; i < path.size();i++){
+            int[] p1 = path.get(i);
+            int dx = p1[0]-p0[0];
+            int dy = p1[1]-p0[1];
+            Direction dir = PirateUtils.getDirection(dx,dy);
+            //double avgState = (map[p0[1]][p0[0]] + map[p1[1]][p1[0]])*0.5;
+            double avgState = map[(p0[1]+p1[1])/2][(p0[0]+p1[0])/2];
+            System.out.println("Go " + dir.toString() + " for " + (int)(Math.sqrt(dx*dx+dy*dy)*0.5) + " steps." + "("+ avgState +")");
+
+            p0 = path.get(i);
+        }
     }
 
 
@@ -302,8 +317,8 @@ public class PirateMap {
             BufferedImage bg = this.getBackground();
             result = PirateUtils.combineImages(drawing,bg,width,height);
             ArrayList<BufferedImage> mounts = new ArrayList<>();
-            for(int i = 1; i < 5; i++){
-                BufferedImage mount = ImageIO.read(new File("ressources/mount" + i + ".png"));
+            for(int i = 1; i < 8; i++){
+                BufferedImage mount = ImageIO.read(new File("ressources/mount/mount_" + i + ".png"));
                 mounts.add(mount);
             }
 
@@ -338,12 +353,14 @@ public class PirateMap {
             PirateUtils.addImage(crossPic,end[0]-crossPic.getWidth()/2,end[1]-crossPic.getHeight()/2,result);
 
             Graphics2D g = (Graphics2D)result.getGraphics();
+            g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             g.setColor(new Color(173,17,0));
 
 
             int[] xPoints = new int[path.size()];
             int[] yPoints = new int[path.size()];
             float[] dash = new float[2*path.size()];
+
             for(int i = 0; i <path.size() ; i++){
                 xPoints[i] = path.get(i)[0];
                 yPoints[i] = path.get(i)[1];
@@ -354,10 +371,24 @@ public class PirateMap {
                // System.out.println(i+": ("+path.get(i)[0]+","+path.get(i)[1]+")");
 
             }
-
             g.setStroke(new BasicStroke(7.0f,                     // Line width
                     BasicStroke.CAP_ROUND,    // End-cap style
                     BasicStroke.JOIN_ROUND, 10.0f, dash,0.0f));
+
+            /*
+            double scale = 0.0;
+            for(int i = 0; i <path.size()-1 ; i++) {
+                QuadCurve2D q = new QuadCurve2D.Float();
+
+                double[] normal = {path.get(i)[1]-path.get(i+1)[1], path.get(i+1)[0]-path.get(i)[0]};
+                double norm = Math.sqrt(normal[0]*normal[0]+normal[1]*normal[1]);
+                normal[0] /= norm;
+                normal[1] /= norm;
+                q.setCurve(path.get(i)[0], path.get(i)[1], (path.get(i)[0] + path.get(i + 1)[0]) * 0.5 + normal[0]*scale, (path.get(i)[1] + path.get(i + 1)[1]) * 0.5 + normal[1]*scale, path.get(i + 1)[0], path.get(i + 1)[1]);
+                g.draw(q);
+            }*/
+
+
             g.drawPolyline(xPoints,yPoints,path.size());
 
 

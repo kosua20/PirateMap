@@ -2,6 +2,8 @@ package com.simonrodriguez.piratemap;
 
 
 import javax.imageio.ImageIO;
+import javax.imageio.ImageWriteParam;
+import javax.imageio.ImageWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;

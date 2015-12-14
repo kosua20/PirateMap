@@ -67,4 +67,27 @@ public class PirateUtils {
         return kernel;
     }
 
+    public static Direction getDirection(double dx, double dy){
+        double norm2 = dx*dx+dy*dy;
+        if(norm2 == 0) {
+            return Direction.Stop;
+        } else if (norm2 != 1.0){
+            double norm = Math.sqrt(norm2);
+            dx /= norm;
+            dy /= norm;
+        }
+
+        if(Math.abs(dx) <= Math.cos(3.0*Math.PI/8.0)) {
+            return (dy <= 0) ? Direction.Up : Direction.Down;
+        } else if (Math.abs(dx) >= Math.cos(Math.PI/8.0)){
+            return (dx >= 0) ? Direction.Right : Direction.Left;
+        } else {
+            if (dy <= 0) {
+                return (dx >= 0) ? Direction.UpRight : Direction.UpLeft;
+            } else {
+                return (dx >= 0) ? Direction.DownRight : Direction.DownLeft;
+            }
+        }
+
+    }
 }
