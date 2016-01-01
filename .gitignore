@@ -2,6 +2,9 @@ bin/
 out/
 output/
 psd/
+biblio/
+selection/
 src/com/simonrodriguez/piratemap/CannyEdgeDetector.java
-
 src/com/simonrodriguez/piratemap/VariousOld
+
+PG-1-Pirate map.pdf

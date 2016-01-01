@@ -41,15 +41,14 @@
       <file leaf-file-name="PirateMap.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/simonrodriguez/piratemap/PirateMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7364486">
-              <caret line="231" column="50" selection-start-line="231" selection-start-column="50" selection-end-line="231" selection-end-column="50" />
+            <state vertical-scroll-proportion="0.7057357">
+              <caret line="391" column="22" selection-start-line="391" selection-start-column="22" selection-end-line="391" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#populateWithNoise#0;class#PirateMap#0" expanded="false" />
                 <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
                 <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
                 <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-                <element signature="method#print#0;class#PirateMap#0" expanded="false" />
                 <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
               </folding>
             </state>
@@ -528,7 +527,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32822478" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -537,7 +536,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32394367" sideWeight="0.53576535" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32168674" sideWeight="0.46423462" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32168674" sideWeight="0.46423462" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32950193" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15808298" sideWeight="0.49036145" order="0" side_tool="false" content_ui="combo" />
@@ -646,7 +645,6 @@
             <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
             <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
             <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
             <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
@@ -682,7 +680,6 @@
             <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
             <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
             <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
             <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
@@ -740,7 +737,6 @@
             <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
             <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
             <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
             <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
@@ -783,7 +779,6 @@
             <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
             <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
             <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
             <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
@@ -838,7 +833,6 @@
             <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
             <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
             <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
             <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
@@ -881,7 +875,6 @@
             <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
             <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
             <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
             <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
@@ -916,7 +909,6 @@
             <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
             <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
             <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
             <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
@@ -951,7 +943,6 @@
             <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
             <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
             <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
             <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
@@ -1097,17 +1088,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/simonrodriguez/piratemap/PirateUtils.java">
+    <entry file="file://$PROJECT_DIR$/src/com/simonrodriguez/piratemap/RandomSuite.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
+          <caret line="159" column="31" selection-start-line="159" selection-start-column="31" selection-end-line="159" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/simonrodriguez/piratemap/PirateMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7057357">
+          <caret line="391" column="22" selection-start-line="391" selection-start-column="22" selection-end-line="391" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#combineImages#0;class#PirateUtils#0" expanded="false" />
-            <element signature="method#addOverlay#0;class#PirateUtils#0" expanded="false" />
-            <element signature="method#mix#1;class#PirateUtils#0" expanded="false" />
-            <element signature="method#deepCopy#0;class#PirateUtils#0" expanded="false" />
-            <element signature="method#makeGaussianKernel#0;class#PirateUtils#0" expanded="false" />
+            <element signature="method#populateWithNoise#0;class#PirateMap#0" expanded="false" />
+            <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
+            <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
+            <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
+            <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -1120,26 +1119,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/simonrodriguez/piratemap/RandomSuite.java">
+    <entry file="file://$PROJECT_DIR$/src/com/simonrodriguez/piratemap/PirateUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="159" column="31" selection-start-line="159" selection-start-column="31" selection-end-line="159" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/simonrodriguez/piratemap/PirateMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7364486">
-          <caret line="231" column="50" selection-start-line="231" selection-start-column="50" selection-end-line="231" selection-end-column="50" />
+          <caret line="22" column="23" selection-start-line="22" selection-start-column="23" selection-end-line="22" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="method#populateWithNoise#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#findMountains#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#placeX#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#findPath#0;class#PirateMap#0" expanded="false" />
-            <element signature="method#print#0;class#PirateMap#0" expanded="false" />
-            <marker date="1450101567000" expanded="true" signature="9792:10164" placeholder="{...}" />
+            <element signature="method#combineImages#0;class#PirateUtils#0" expanded="false" />
+            <element signature="method#addOverlay#0;class#PirateUtils#0" expanded="false" />
+            <element signature="method#mix#1;class#PirateUtils#0" expanded="false" />
+            <element signature="method#deepCopy#0;class#PirateUtils#0" expanded="false" />
+            <element signature="method#makeGaussianKernel#0;class#PirateUtils#0" expanded="false" />
           </folding>
         </state>
       </provider>
