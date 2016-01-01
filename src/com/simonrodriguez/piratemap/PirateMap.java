@@ -170,7 +170,7 @@ public class PirateMap {
         }
 
         int[] p0 = path.get(0);
-
+        TerrainType previousState = TerrainType.Water;
         for(int i = 1; i < path.size();i++){
             int[] p1 = path.get(i);
             int dx = p1[0]-p0[0];
@@ -178,9 +178,20 @@ public class PirateMap {
             Direction dir = PirateUtils.getDirection(dx,dy);
             //double avgState = (map[p0[1]][p0[0]] + map[p1[1]][p1[0]])*0.5;
             double avgState = map[(p0[1]+p1[1])/2][(p0[0]+p1[0])/2];
-            description.add("Go " + dir.toString() + " for " + (int)(Math.sqrt(dx*dx+dy*dy)*0.5) + " steps, " + PirateUtils.getType(avgState).toString() +".");
+            TerrainType currentState = PirateUtils.getType(avgState);
+            if(i > 1 && previousState==currentState){
+                description.add(getRandomEvent(currentState));
+            }
+
+            description.add("Go " + dir.toString() + " for " + (int)(Math.sqrt(dx*dx+dy*dy)*0.5) + " steps, " + currentState.toString(true) +".");
+
+            previousState = currentState;
             p0 = path.get(i);
         }
+    }
+
+    private String getRandomEvent(TerrainType type){
+            return "Here a random action for state " + type.toString();
     }
 
     private boolean groundAround(int x, int y, int w, int h){
@@ -251,12 +262,12 @@ public class PirateMap {
                     image.setRGB(x, y, color2); //Coast
                 } else if (value <= 25) {
                     image.setRGB(x, y, color3);//Plain
-                } else if (value <= 150) {
+                /*} else if (value <= 150) {
                     image.setRGB(x, y, color4);//Forest
                 } else if (value <= 165) {
                     image.setRGB(x, y, color2);//Moutain
                 } else if (value <= 170) {
-                    image.setRGB(x, y, color3);
+                    image.setRGB(x, y, color3);*/
                 } else {
                     image.setRGB(x, y, color5);
                 }

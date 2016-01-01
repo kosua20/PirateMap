@@ -14,20 +14,24 @@ public enum TerrainType {
 
 
     @Override
-    public String toString() {
+    public String toString(){
+        return toString(false);
+    }
+
+    public String toString(boolean detailed) {
         switch (this) {
             case Water:
-                return "across the sea";
+                return detailed ? "across the sea" : "sea";
             case Coast:
-                return "along the coast";
+                return detailed ? "along the coast" : "coast";
             case Plain:
-                return "across the plain";
+                return detailed ? "across the plain" : "plain";
             case Forest:
-                return "through the forest";
+                return detailed ? "through the forest" : "forest";
             case Valley:
-                return "in the valley";
+                return detailed ? "in the valley" : "valley";
             case Moutain:
-                return "across the mountains";
+                return detailed ? "across the mountains" : "mountains";
             default:
                 return "";
         }
