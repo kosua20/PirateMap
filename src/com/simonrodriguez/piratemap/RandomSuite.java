@@ -2,6 +2,7 @@ package com.simonrodriguez.piratemap;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
 /**
@@ -15,6 +16,22 @@ public class RandomSuite {
     public RandomSuite(int seed, int size){
             mainRandom = new Random(seed);
             perlin = new PerlinNoiseGenerator(mainRandom.nextInt(),size);
+
+        indices.put(TerrainType.Water,nextInt(6));
+        indices.put(TerrainType.Coast,nextInt(6));
+        indices.put(TerrainType.Plain,nextInt(6));
+        indices.put(TerrainType.Forest,nextInt(6));
+        indices.put(TerrainType.Valley,nextInt(6));
+        indices.put(TerrainType.Mountain ,nextInt(6));
+
+
+        events.put(TerrainType.Water, new String[]{"You'll reach an old buoy.","This is where my ship sank.","Here be sharks.","You'll be above an old shipwreck.","Beware of the mermaids in this area!","There are reefs here."});
+        events.put(TerrainType.Coast,new String[]{"You want to avoid the crabs.","Avoid the quicksands on the left.","Coconuts!","Cross the creek.","A key is hidden under the root of the big palm tree.","Dig here, you'll find another map."});
+        events.put(TerrainType.Plain,new String[]{"Cross the river.","Under the tree here is buried my first mate.","Don't eat the berries from the bushes in this area.","Avoid the river, full of piranhas.","Salted beef in a barrel!","The hanging tree..."});
+        events.put(TerrainType.Forest,new String[]{"Beware of the traps!","You'll reach the cannibals village.","Under the mossy tree, you'll find an old bottle of rum!","Don't touch the sacred totem.","Don't disturb the monkeys in the trees.","We killed a boar once here."});
+        events.put(TerrainType.Valley,new String[]{"There is an old man in a hut, avoid him.","Under the piled rocks, I've hidden a key.","We put traps here, beware.","The valley of Snakes, we called it. Run.","You just reached our secret hideout!","Ten gallons of rums!"});
+        events.put(TerrainType.Mountain,new String[]{"In the cave on the right there is a wild beast.","You will have to climb the cliff.","Follow the ledge.","Beware of rockfalls.","The slope is steep, but it'll be worth it.","Enjoy the view!"});
+
     }
 
     public int nextInt(){
@@ -46,7 +63,6 @@ public class RandomSuite {
     public boolean nextBool(){
         return nextDouble() < 0.5;
     }
-
 
     public double perlin(int x, int y, int z, int cells){
         return  perlin.perlin(x,y,z,cells);
@@ -168,4 +184,12 @@ public class RandomSuite {
 
     }
 
+    private HashMap<TerrainType, String[]> events = new HashMap<>();
+    private HashMap<TerrainType, Integer> indices = new HashMap<>();
+
+    public String getRandomEvent(TerrainType type){
+        indices.put(type, (indices.get(type)+1)%6);
+        return events.get(type)[indices.get(type)];
+        //return "" + indices.get(type) + "";
+    }
 }

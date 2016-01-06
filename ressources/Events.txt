@@ -1,0 +1,48 @@
+#Water
+You'll reach an old buoy.
+This is where my ship sank.
+Here be sharks.
+You'll be above an old shipwreck.
+Beware of the mermaids in this area!
+There are reefs here.
+
+#Coast
+You want to avoid the crabs.
+Avoid the quicksands on the left.
+Coconuts!
+Cross the creek.
+A key is hidden under the root of the big palm tree.
+Dig here, you'll find another map.
+
+#Plain
+Cross the river.
+Under the tree here is buried my first mate.
+Don't eat the berries from the bushes in this area.
+Avoid the river, full of pirahnas.
+Salted beef in a barrel!
+The hanging tree...
+
+#Forest
+Beware of the traps!
+You'll reach the cannibals village.
+Under the mossy tree, you'll find an old bottle of rum!
+Don't touch the sacred totem.
+Don't disturb the monkeys in the trees.
+We killed a boar once here.
+
+#Valley
+There is an old man in a hut, avoid him.
+Under the piled rocks, I've hidden a key.
+We put traps here, beware.
+The valley of Snakes, we called it. Run.
+You just reached our secret hideout!
+Ten gallons of rums!
+
+#Mountain
+In the cave on the right there is a wild beast.
+You will have to climb the cliff.
+Follow the ledge.
+Beware of rockfalls.
+The slope is steep, but it'll be worth it.
+Enjoy the view!
+

@@ -104,7 +104,7 @@ public class PirateUtils {
         } else if (value <= 165) {
             return TerrainType.Valley;
         } else {
-            return TerrainType. Moutain;
+            return TerrainType.Mountain;
         }
     }
 }

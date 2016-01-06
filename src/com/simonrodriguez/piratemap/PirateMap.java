@@ -22,9 +22,9 @@ public class PirateMap {
     //DONE: Path to X
     //TODO: Rivers
     //TODO: plants, trees, ruins
-    //TODO: print directions
+    //DONE: print directions
     //TODO: names of places
-    //TODO: detailed directions
+    //DONE: detailed directions
 
     private int width;
     private int height;
@@ -180,7 +180,7 @@ public class PirateMap {
             double avgState = map[(p0[1]+p1[1])/2][(p0[0]+p1[0])/2];
             TerrainType currentState = PirateUtils.getType(avgState);
             if(i > 1 && previousState==currentState){
-                description.add(getRandomEvent(currentState));
+                description.add(random.getRandomEvent(currentState));
             }
 
             description.add("Go " + dir.toString() + " for " + (int)(Math.sqrt(dx*dx+dy*dy)*0.5) + " steps, " + currentState.toString(true) +".");
@@ -188,11 +188,10 @@ public class PirateMap {
             previousState = currentState;
             p0 = path.get(i);
         }
+        description.add("Start digging where the cross is.");
     }
 
-    private String getRandomEvent(TerrainType type){
-            return "Here a random action for state " + type.toString();
-    }
+
 
     private boolean groundAround(int x, int y, int w, int h){
         //quick shortcut at center

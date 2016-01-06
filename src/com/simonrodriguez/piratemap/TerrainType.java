@@ -9,7 +9,7 @@ public enum TerrainType {
     Plain,
     Forest,
     Valley,
-    Moutain;
+    Mountain;
 
 
 
@@ -30,7 +30,7 @@ public enum TerrainType {
                 return detailed ? "through the forest" : "forest";
             case Valley:
                 return detailed ? "in the valley" : "valley";
-            case Moutain:
+            case Mountain:
                 return detailed ? "across the mountains" : "mountains";
             default:
                 return "";
