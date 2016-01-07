@@ -6,5 +6,8 @@ biblio/
 selection/
 src/com/simonrodriguez/piratemap/CannyEdgeDetector.java
 src/com/simonrodriguez/piratemap/VariousOld
-
+.idea/
+PirateMap.iml
 PG-1-Pirate map.pdf
+
+.idea/workspace.xml
