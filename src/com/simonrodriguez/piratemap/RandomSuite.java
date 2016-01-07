@@ -190,6 +190,5 @@ public class RandomSuite {
     public String getRandomEvent(TerrainType type){
         indices.put(type, (indices.get(type)+1)%6);
         return events.get(type)[indices.get(type)];
-        //return "" + indices.get(type) + "";
     }
 }

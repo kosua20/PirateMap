@@ -5,7 +5,7 @@ This was a really fun and interesting experiment, where I finally had the opport
 The imgur album where I tracked my progress: [Album](http://imgur.com/a/7Qjk1)
 
 ##Results
-![First sample](http://imgur.com/oYggaOT)  
+![First sample](http://i.imgur.com/oYggaOT.png)  
 Go northwest for 36 steps, across the sea.  
 Go west for 51 steps, along the coast.  
 Go northwest for 58 steps, in the valley.  
@@ -17,7 +17,7 @@ Don't disturb the monkeys in the trees.
 Go east for 35 steps, through the forest.  
 Start digging where the cross is.  
 
-![Second sample](http://imgur.com/YJltq3t)  
+![Second sample](http://i.imgur.com/YJltq3t.png)  
 Go southeast for 42 steps, through the forest.  
 Go east for 68 steps, across the sea.  
 This is where my ship sank.  

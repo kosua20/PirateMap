@@ -2,13 +2,10 @@ package com.simonrodriguez.piratemap;
 
 
 import javax.imageio.ImageIO;
-import javax.imageio.ImageWriteParam;
-import javax.imageio.ImageWriter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 
 
@@ -27,7 +24,7 @@ public class PirateMapPanel extends JPanel {
         map.generate();
         map.print();
         background = map.getImageRepresentation();
-        File f = new File("output/map_" + new Date().toString() + "_" + map.seed + ".png");
+        File f = new File("map_" + new Date().toString() + "_" + map.seed + ".png");
         try {
             BufferedImage newImage = new BufferedImage(background.getWidth(), background.getHeight(), BufferedImage.TYPE_INT_RGB);
             int[] rgb = background.getRGB(0, 0, background.getWidth(), background.getHeight(), null, 0, background.getWidth());
