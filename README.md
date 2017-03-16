@@ -4,7 +4,7 @@ This was a really fun and interesting experiment, where I finally had the opport
 
 The imgur album where I tracked my progress: [Album](http://imgur.com/a/7Qjk1)
 
-##Results
+## Results
 
 ![First sample](http://i.imgur.com/oYggaOT.png)  
 
@@ -35,17 +35,17 @@ Go northwest for 26 steps, across the sea.
 Go north for 62 steps, through the forest.  
 Start digging where the cross is.*
 
-##Details
-###The islands
+## Details
+### The islands
 I'm generating an height map using some Perlin noise for the general shape of the island and fractal noise for the details. This map is thresholded and filled with plain colors. Then I detect the countours with a simple neighbours-checking algorithm, and draw those isolines. By repeating the drawing pass multiple times with some noise added, I can generate a thicker, pencil-drawn line for the coast.
 
-###Decorations 
+### Decorations 
 Moutains are added above a certain height, with some padding to avoid overlays.
 For the waves, many points are drawn from a poisson-disc distribution, and filtered based on their proximity to the coast.
 The background is composed of a picture selected randomly among a set of old papers scans, and of a general tint generated at random.
 
-###The path 
+### The path 
 For the path, the start and finish points are first selected randomly. The algorithm tries to find points far enough from each other and both on land. Then, a few other points are selected. By joining all the points, we get a first version of the path. Between each pair of points, a few other points are added and randomly disturbed : this brings more variation and the hand-drawn look. Then, a dotted red line with an irregular pattern is drawn.
 
-###The directions
+### The directions
 While building the path, the description is also created. For each line segment we sample the type of terrain crossed (sea, coast, forest, plain, valley or mountain) based on the height. The length of the segment is converted in a number of steps. When two consecutive segments are on the same terrain type, a line with a comment taken at random from a predefined list is added.
